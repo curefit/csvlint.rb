@@ -38,6 +38,7 @@ module Csvlint
         ESCAPE_RE[@re_chars][@re_esc][str]
       end
 
+     if RUBY_VERSION < '2.5'
       # Optimization: Disable the CSV library's converters feature.
       # @see https://github.com/ruby/ruby/blob/v2_2_3/lib/csv.rb#L2100
       def init_converters(options, field_name = :converters)
@@ -46,6 +47,7 @@ module Csvlint
         options.delete(:unconverted_fields)
         options.delete(field_name)
       end
+     end
     end
 
     include Csvlint::ErrorCollector
